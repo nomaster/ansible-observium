@@ -1,0 +1,28 @@
+<?php
+# {{ ansible_managed }}
+
+$config['web_url'] = "https://{{ ansible_nodename }}/";
+
+$config['db_host'] = 'localhost';
+$config['db_user'] = 'observium';
+$config['db_pass'] = 'observium';
+$config['db_name'] = 'observium';
+
+$config['install_dir'] = "/opt/observium";
+
+$config['snmp']['community'] = array("public");
+
+$config['auth_mechanism'] = "mysql";
+$config['enable_syslog'] = 1;
+
+$config['rrd_dir'] = "/var/lib/rrdcached/rrd";
+$config['rrdcached'] = "unix:/run/rrdcached.sock";
+
+$config['housekeeping']['syslog']['age'] = 86400;
+$config['housekeeping']['eventlog']['age'] = 86400;
+$config['housekeeping']['rrd']['age'] = 86400;
+$config['housekeeping']['rrd']['invalid'] = TRUE;
+$config['housekeeping']['deleted_ports']['age'] = 86400;
+$config['housekeeping']['timing']['age'] = 86400;
+
+// End config.php

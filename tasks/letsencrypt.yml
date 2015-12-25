@@ -1,0 +1,17 @@
+---
+
+- name: Configure repository
+  apt_repository: repo='deb http://cloudfront.debian.net/debian testing main' state=present
+  register: repo
+
+- name: Update apt cache
+  apt: update_cache=yes
+  when: repo | changed
+
+- name: Install package
+  apt: name=letsencrypt state=present default_release=testing
+
+- name: Generate certificates
+  command: /usr/bin/letsencrypt certonly --agree-tos --email webmaster@{{ ansible_domain }} --domains {{ ansible_nodename }}
+  args:
+    creates: /etc/letsencrypt/renewal/{{ ansible_nodename }}.conf

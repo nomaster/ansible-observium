@@ -1,0 +1,8 @@
+---
+
+- include: mysql.yml
+- include: php5-fpm.yml
+- include: letsencrypt.yml
+- include: nginx.yml
+- include: rrdcached.yml
+- include: observium.yml

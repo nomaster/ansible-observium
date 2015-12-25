@@ -1,0 +1,8 @@
+[Unit]
+Description = Run Observium Poller
+
+[Timer]
+OnCalendar = *:*:00
+
+[Install]
+WantedBy = timers.target

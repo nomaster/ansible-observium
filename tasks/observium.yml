@@ -1,0 +1,83 @@
+---
+
+- name: Install requirements
+  apt: name={{ item }} state=present
+  with_items:
+    - php5-cli
+    - php5-mysql
+    - php5-gd
+    - php5-mcrypt
+    - php5-json
+    - php-pear
+    - snmp
+    - fping
+    - whois
+    - mtr-tiny
+    - ipmitool
+    - graphviz
+    - imagemagick
+    - syslog-ng
+
+- name: Download archive
+  get_url:
+    url: "http://www.observium.org/observium-community-latest.tar.gz"
+    checksum: "sha256:3b1927c59f054d0a57a0a99e71c612bda4fa5847f4ccba8fdb87efd2dc10dde3"
+    dest: /opt
+
+- name: Unzip archive
+  unarchive: src=/opt/observium-community-latest.tar.gz dest=/opt copy=no owner=root group=root
+
+- name: Create log directory
+  file: dest=/opt/observium/logs state=directory owner=www-data group=www-data
+
+- name: Create MySQL database
+  mysql_db: name=observium state=present
+  register: db
+
+- name: Initialize MySQL database
+  command: /opt/observium/discovery.php -u
+  when: db | changed
+
+- name: Create MySQL user
+  mysql_user: name=observium password=observium priv=observium.*:ALL state=present
+
+- name: Configure options
+  template: src=config.php.j2 dest=/opt/observium/config.php
+
+- name: Configure services
+  copy: src={{ item }} dest=/etc/systemd/system/
+  with_items:
+  - observium-discovery-all.timer
+  - observium-discovery-new.timer
+  - observium-discovery@.service
+  - observium-housekeeping.service
+  - observium-housekeeping.timer
+  - observium-poller.service
+  - observium-poller.timer
+  register: services
+
+- name: Reload systemd units
+  command: systemctl daemon-reload
+  when: services | changed
+
+- name: Enable systemd timers
+  service: name={{ item }} enabled=yes state=started
+  with_items:
+  - observium-discovery-all.timer
+  - observium-discovery-new.timer
+  - observium-housekeeping.timer
+  - observium-poller.timer
+
+- name: Add webserver user to RRD group
+  user: name=www-data groups=rrd append=yes
+
+- name: Configure website
+  template: src=observium.conf.j2 dest=/etc/nginx/sites-enabled/observium.conf
+  notify: restart nginx
+
+- name: Configure syslog service
+  template: src=syslog-ng.conf.j2 dest=/etc/syslog-ng/syslog-ng.conf
+  notify: restart syslog-ng
+
+- name: Enable syslog service
+  service: name=syslog-ng state=started

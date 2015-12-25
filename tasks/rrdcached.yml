@@ -1,0 +1,21 @@
+---
+
+- name: Install package
+  apt: name=rrdcached state=installed
+  notify: restart rrdached
+
+- name: Create system group
+  group: name=rrd system=yes state=present
+
+- name: Create data directories
+  file: dest={{ item }} state=directory group=rrd
+  with_items:
+  - /var/lib/rrdcached/rrd
+  - /var/lib/rrdcached/journal
+
+- name: Configure service
+  template: src=rrdcached.service.j2 dest=/etc/systemd/system/rrdcached.service
+  notify: restart rrdached
+
+- name: Enable service
+  service: name=rrdcached enabled=yes
