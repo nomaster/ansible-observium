@@ -11,5 +11,20 @@
   template: src=mysql.cnf.j2 dest=/etc/mysql/conf.d/mysql.cnf
   notify: restart mysql
 
+- name: Install mysqlcheck service
+  copy: src=mysqlcheck.service dest=/etc/systemd/system/
+  notify:
+  - reload daemons
+  - restart mysqlcheck
+
+- name: Install mysqlcheck timer
+  copy: src=mysqlcheck.timer dest=/etc/systemd/system/
+  notify:
+  - reload daemons
+  - restart mysqlcheck
+
+- name: Enable mysqlcheck timer
+  service: name=mysqlcheck.timer enabled=yes
+
 - name: Enable service
   service: name=mysql enabled=yes
