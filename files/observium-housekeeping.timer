@@ -1,8 +1,8 @@
 [Unit]
-Description = Run Observium housekeeping
+Description=Daily Observium housekeeping
 
 [Timer]
-OnCalendar = daily
+OnCalendar=daily
 
 [Install]
-WantedBy = timers.target
+WantedBy=timers.target

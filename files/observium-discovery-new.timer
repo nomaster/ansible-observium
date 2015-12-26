@@ -1,10 +1,10 @@
 [Unit]
-Description = Run Observium Discovery for new hosts
+Description=Observium discovery of new hosts
 
 [Timer]
-Unit = observium-discovery@new.service
-OnUnitActiveSec = 5min
-OnBootSec = 1min
+Unit=observium-discovery@new.service
+OnUnitActiveSec=5min
+OnBootSec=1min
 
 [Install]
-WantedBy = timers.target
+WantedBy=timers.target

@@ -1,9 +1,6 @@
 [Unit]
-Description = Observium Poller
+Description=Observium Poller
 
 [Service]
-Type = oneshot
-ExecStart = /opt/observium/poller-wrapper.py 10
-
-[Install]
-WantedBy = timers.target
+Type=oneshot
+ExecStart=/opt/observium/poller-wrapper.py 10

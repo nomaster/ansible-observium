@@ -1,9 +1,6 @@
 [Unit]
-Description = Run Observium housekeeping
+Description=Observium housekeeping
 
 [Service]
-Type = oneshot
-ExecStart = /opt/observium/housekeeping.php -ay
-
-[Install]
-WantedBy = multi-user.target
+Type=oneshot
+ExecStart=/opt/observium/housekeeping.php -ay

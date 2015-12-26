@@ -1,9 +1,6 @@
 [Unit]
-Description = Observium Discovery
+Description=Observium Discovery
 
 [Service]
-Type = oneshot
-ExecStart = /opt/observium/discovery.php -h %i
-
-[Install]
-WantedBy = timers.target
+Type=oneshot
+ExecStart=/opt/observium/discovery.php -h %i
