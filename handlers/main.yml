@@ -17,3 +17,6 @@
 
 - name: restart mysqlcheck
   service: name=mysqlcheck.timer state=restarted
+
+- name: update observium
+  command: ./discovery.php -u chdir=/opt/observium

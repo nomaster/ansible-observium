@@ -21,11 +21,12 @@
 - name: Download archive
   get_url:
     url: "http://www.observium.org/observium-community-latest.tar.gz"
-    checksum: "sha256:3b1927c59f054d0a57a0a99e71c612bda4fa5847f4ccba8fdb87efd2dc10dde3"
+    checksum: "sha256:55f0feddf0595289c09304d0cf5a26625a057dfb314b22b9fe5726977d1c2b29"
     dest: /opt
 
 - name: Unzip archive
   unarchive: src=/opt/observium-community-latest.tar.gz dest=/opt copy=no owner=root group=root
+  notify: update observium
 
 - name: Create log directory
   file: dest=/opt/observium/logs state=directory owner=www-data group=www-data
