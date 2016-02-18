@@ -27,4 +27,7 @@ $config['housekeeping']['timing']['age'] = 86400;
 
 $config['geocoding']['api'] = 'google';
 
+$config['device_traffic_iftype'] = array('/loopback/','/tunnel/','/virtual/','/mpls/');
+$config['device_traffic_descr'] = array('/loopback/','/vlan/','/tunnel/','/:\d+/','/gretap\d+/','/l2tp\d+/','/tun-.+/','/dummy\d+/','/supernode/','/bat\d+/','/br\d+/','/alfred\d+/','/tap\d+/','/bb-.*/','/tap-.*/');
+
 // End config.php
