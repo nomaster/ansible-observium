@@ -1,0 +1,7 @@
+[Unit]
+Description=Letsencrypt certificate renewal
+After=network.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/letsencrypt renew

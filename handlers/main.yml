@@ -20,3 +20,9 @@
 
 - name: update observium
   command: ./discovery.php -u chdir=/opt/observium
+
+- name: reload systemd
+  command: systemctl daemon-reload
+
+- name: restart letsencrypt timer
+  service: name=letsencrypt.timer state=restarted

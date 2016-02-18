@@ -15,3 +15,15 @@
   command: /usr/bin/letsencrypt certonly --agree-tos --email webmaster@{{ ansible_domain }} --domains {{ ansible_nodename }}
   args:
     creates: /etc/letsencrypt/renewal/{{ ansible_nodename }}.conf
+
+- name: Configure certificate renewal service
+  template: src={{ item }}.j2 dest=/etc/systemd/system/{{ item }}
+  with_items:
+  - letsencrypt.service
+  - letsencrypt.timer
+  notify:
+  - reload systemd
+  - restart letsencrypt timer
+
+- name: Enable certificate renewal service
+  service: name=letsencrypt.timer enabled=yes
