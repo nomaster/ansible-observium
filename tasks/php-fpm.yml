@@ -1,0 +1,12 @@
+---
+
+- name: Install package
+  apt: name=php7.0-fpm state=installed
+  notify: restart php7.0-fpm
+
+- name: Configure service
+  template: src=www.conf.j2 dest=/etc/php/7.0/fpm/pool.d/www.conf
+  notify: restart php7.0-fpm
+
+- name: Enable service
+  service: name=php7.0-fpm enabled=yes
