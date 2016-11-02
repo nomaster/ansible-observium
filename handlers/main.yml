@@ -26,3 +26,6 @@
 
 - name: restart letsencrypt timer
   service: name=letsencrypt.timer state=restarted
+
+- name: restart syslog-ng
+  service: name=syslog-ng state=restarted
