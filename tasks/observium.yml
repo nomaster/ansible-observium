@@ -21,7 +21,7 @@
 - name: Download archive
   get_url:
     url: "http://www.observium.org/observium-community-latest.tar.gz"
-    checksum: "sha256:55f0feddf0595289c09304d0cf5a26625a057dfb314b22b9fe5726977d1c2b29"
+    checksum: "sha256:1f974c4c0d7329465ecdc4b30396710957121ecccd812d8c5250b492dd447877"
     dest: /opt
 
 - name: Unzip archive
