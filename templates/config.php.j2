@@ -11,7 +11,8 @@ $config['db_extension'] = 'mysqli';
 
 $config['install_dir'] = "/opt/observium";
 
-$config['snmp']['community'] = array("public");
+$config['snmp']['community'] = array("{{ snmp_community }}");
+$config['snmp']['transports'] = array('udp6', 'udp');
 
 $config['auth_mechanism'] = "mysql";
 $config['enable_syslog'] = 1;
