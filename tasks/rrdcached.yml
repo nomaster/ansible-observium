@@ -2,7 +2,7 @@
 
 - name: Install package
   apt: name=rrdcached state=installed
-  notify: restart rrdached
+  notify: restart rrdcached
 
 - name: Create system group
   group: name=rrd system=yes state=present
@@ -15,7 +15,7 @@
 
 - name: Configure service
   template: src=rrdcached.service.j2 dest=/etc/systemd/system/rrdcached.service
-  notify: restart rrdached
+  notify: restart rrdcached
 
 - name: Enable service
-  service: name=rrdcached enabled=yes
+  service: name=rrdcached state=started enabled=yes

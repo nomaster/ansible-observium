@@ -31,6 +31,9 @@
 - name: Create log directory
   file: dest=/opt/observium/logs state=directory owner=www-data group=www-data
 
+- name: Configure options
+  template: src=config.php.j2 dest=/opt/observium/config.php
+
 - name: Create MySQL database
   mysql_db: name=observium state=present
   register: db
@@ -41,9 +44,6 @@
 
 - name: Create MySQL user
   mysql_user: name=observium password=observium priv=observium.*:ALL state=present
-
-- name: Configure options
-  template: src=config.php.j2 dest=/opt/observium/config.php
 
 - name: Configure services
   copy: src={{ item }} dest=/etc/systemd/system/
