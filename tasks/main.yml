@@ -3,6 +3,7 @@
 - include: mysql.yml
 - include: php-fpm.yml
 - include: letsencrypt.yml
+  when: "{{ observium_protocol == 'https' }}"
 - include: nginx.yml
 - include: rrdcached.yml
 - include: observium.yml

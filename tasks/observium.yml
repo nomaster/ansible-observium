@@ -73,7 +73,7 @@
   user: name=www-data groups=rrd append=yes
 
 - name: Configure website
-  template: src=observium.conf.j2 dest=/etc/nginx/sites-enabled/observium.conf
+  template: src=observium-{{ observium_protocol }}.conf.j2 dest=/etc/nginx/sites-enabled/observium.conf
   notify: restart nginx
 
 - name: Configure syslog service
