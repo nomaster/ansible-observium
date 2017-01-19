@@ -26,7 +26,7 @@
   notify: restart nginx
 
 - name: Create Diffie-Hellmann parameters
-  command: /usr/bin/openssl dhparam -out /etc/ssl/dhparams.pem 4096 creates=/etc/ssl/dhparams.pem
+  command: /usr/bin/openssl dhparam -out /etc/ssl/dhparams.pem {{ dhparam_length }} creates=/etc/ssl/dhparams.pem
 
 - name: Enable service
   service: name=nginx enabled=yes

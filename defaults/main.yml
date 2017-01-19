@@ -1,3 +1,4 @@
 ---
 
 snmp_community: public
+dhparam_length: 4096
